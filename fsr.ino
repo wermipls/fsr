@@ -391,7 +391,7 @@ class Sensor {
       return;
     }
 
-    int16_t sensor_value = analogRead(pin_value_);
+    int16_t sensor_value = 1023 - analogRead(pin_value_);
 
     #if defined(CAN_AVERAGE)
       // Fetch the updated Weighted Moving Average.
@@ -484,11 +484,23 @@ class Sensor {
 //   Sensor(A4),
 // };
 
+SensorState state0;
+SensorState state1;
+SensorState state2;
+SensorState state3;
+SensorState state4;
+
 Sensor kSensors[] = {
-  Sensor(A0),
-  Sensor(A1),
-  Sensor(A2),
-  Sensor(A3),
+  Sensor(A0, &state0),
+  Sensor(A1, &state0),
+  Sensor(A2, &state1),
+  Sensor(A3, &state1),
+  Sensor(A4, &state2),
+  Sensor(A5, &state2),
+  Sensor(A6, &state3),
+  Sensor(A7, &state3),
+  Sensor(A8, &state4),
+  Sensor(A9, &state4),
 };
 const size_t kNumSensors = sizeof(kSensors)/sizeof(Sensor);
 
